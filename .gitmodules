@@ -1,0 +1,4 @@
+[submodule "submodules/simple-knn"]
+	path = submodules/simple-knn
+	url = https://github.com/pz0826/simple-knn.git
+
