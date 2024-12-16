@@ -2,3 +2,6 @@
 	path = submodules/simple-knn
 	url = https://github.com/pz0826/simple-knn.git
 
+[submodule "submodules/segment-anything"]
+	path = submodules/segment-anything
+	url = https://github.com/pz0826/segment-anything.git
