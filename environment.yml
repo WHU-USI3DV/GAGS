@@ -1,0 +1,28 @@
+name: GAGS
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+  - nvidia
+dependencies:
+  - open-clip-torch
+  - cuda-toolkit=11.8
+  - plyfile=0.8.1
+  - python=3.8.19
+  - pip=22.3.1
+  - pytorch=2.1.0=py3.8_cuda11.8_cudnn8.7.0_0
+  - torchaudio=2.1.0
+  - torchvision=0.16.0
+  - tqdm
+  - tensorboard
+  - opencv
+  - jaxtyping
+  - matplotlib
+  - typing
+  - pathlib
+  - openblas-devel
+  - pip:
+    - gsplat
+    - open3d
+    - submodules/segment-anything-langsplat
+    - submodules/simple-knn
