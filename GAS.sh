@@ -1,5 +1,5 @@
-DATA_NAME="garden" # ramen | figurines | teatime | waldo_kitchen | rr-5fps ||| room | garden | counter | bonsai
-PROJ_PATH="/home/path/to/GAGS"
+DATA_NAME="whu_square" # ramen | figurines | teatime | waldo_kitchen | rr-5fps ||| room | garden | counter | bonsai
+PROJ_PATH="/home/pyn/CODE/GAGS"
 CASE_NAME="garden_scene_name" 
 Iteration="30000"
 
