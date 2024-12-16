@@ -42,6 +42,7 @@ if [ -d "$PROJ_PATH/data/$DATA_NAME/language_features" ] &&
 else
     echo "No language features founded in $PROJ_PATH/data/$DATA_NAME/language_features. Start extracting language features."
     python preprocess.py \
-        --dataset_path $PROJ_PATH/data/$DATA_NAME 
+        --dataset_path $PROJ_PATH/data/$DATA_NAME \
+        --mindepth_mode
     echo "Extracting language features done."
 fi
