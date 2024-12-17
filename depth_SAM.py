@@ -113,9 +113,9 @@ def vis_one_image_pcd(gs_pcd, w2c_RT, K, depth_map):
 def save_pcd_depth(pcd_depth, pcd_pxl_mask, pcd_pxl_mapping, cam_list, save_path, save_path_pcd=None):
     cam_H=cam_list[0].image_height
     cam_W=cam_list[0].image_width
-    pcd_pxl_mask = pcd_pxl_mask.to(torch.bool)
-    print('pcd_pxl_mask',pcd_pxl_mask.shape) # N_points, N_cameras
-    print('pcd_pxl_mapping:',pcd_pxl_mapping.shape) # N_points, N_cameras, 2
+    # print('pcd_pxl_mask',pcd_pxl_mask.shape) # N_points, N_cameras
+    # print('pcd_pxl_mapping:',pcd_pxl_mapping.shape) # N_points, N_cameras, 2
+    
     for cid in tqdm(range(len(cam_list))):
         cam_name=cam_list[cid].image_name
         depth_sample=torch.zeros((cam_H,cam_W))
@@ -214,8 +214,8 @@ def main(model_params: ModelParams, iteration: int, sample_rate: float):
     save_path = os.path.join(model_params.source_path, 'depths_sample')
     os.makedirs(save_path,exist_ok=True)
     # save_path_pcd=os.path.join(model_params.model_path, 'train', "ours_{}".format(iteration), "pcd_depths_sample")
-    save_path_pcd = os.path.join(model_params.source_path, 'pcd_depths_sample')
-    os.makedirs(save_path_pcd,exist_ok=True)    
+    # save_path_pcd = os.path.join(model_params.source_path, 'pcd_depths_sample')
+    # os.makedirs(save_path_pcd,exist_ok=True)    
     
     device="cuda"
     
@@ -254,21 +254,20 @@ def main(model_params: ModelParams, iteration: int, sample_rate: float):
             # vis_one_image_pcd(gs_pcd, w2c_RT, K, depth_map)
             
         pcd_pxl_depth = torch.from_numpy(np.stack(pcd_pxl_depth_list, axis=0)).permute(1,0) # [N_points, N_cameras]
-        pcd_pxl_mask = torch.from_numpy(np.stack(pcd_pxl_mask_list, axis=0)).permute(1,0) # [N_points, N_cameras]
-        pcd_pxl_mapping=torch.from_numpy(np.stack(pcd_pxl_mapping_list, axis=0)).permute(1,0,2) # [N_points, N_cameras, 2]
-        print("pcd_pxl_depth:",pcd_pxl_depth.shape)
-        print("pcd_pxl_mask:",pcd_pxl_mask.shape)
-        
-        point_ids = torch.unique(pcd_pxl_mask.nonzero(as_tuple=False)[:, 0]) # [N_points] 有对应2D pixel的3D points index
         pcd_min_depth = torch.min(pcd_pxl_depth, dim=1)[0] # [N_points]
-
-        print('max_depth:',torch.max(pcd_min_depth[point_ids]),'min_depth:',torch.min(pcd_min_depth[point_ids]))
+        pcd_pxl_mask = torch.from_numpy(np.stack(pcd_pxl_mask_list, axis=0)).permute(1,0).to(torch.bool) # [N_points, N_cameras]
+        pcd_pxl_mapping=torch.from_numpy(np.stack(pcd_pxl_mapping_list, axis=0)).permute(1,0,2) # [N_points, N_cameras, 2]
+        
+        del pcd_pxl_depth, pcd_pxl_depth_list, pcd_pxl_mask_list, pcd_pxl_mapping_list
+        
+        # point_ids = torch.unique(pcd_pxl_mask.nonzero(as_tuple=False)[:, 0]) # [N_points] 有对应2D pixel的3D points index
+        # print('max_depth:',torch.max(pcd_min_depth[point_ids]),'min_depth:',torch.min(pcd_min_depth[point_ids]))
         
         # visualization
         # vis_pcd_depth(gs_pcd[point_ids].cpu().numpy(),pcd_min_depth[point_ids])
         
         # saving
-        save_pcd_depth(pcd_min_depth, pcd_pxl_mask, pcd_pxl_mapping, sample_camera, save_path, save_path_pcd=save_path_pcd)
+        save_pcd_depth(pcd_min_depth, pcd_pxl_mask, pcd_pxl_mapping, sample_camera, save_path)
         
 if __name__ == "__main__":
     parser = ArgumentParser(description="Depth based SAM sampling script parameters")

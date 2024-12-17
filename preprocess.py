@@ -529,6 +529,8 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_path', type=str, required=True)
+    parser.add_argument('--model_path', type=str, required=True)
+    parser.add_argument("--iteration", default=30000, type=int)
     parser.add_argument('--resolution', type=int, default=-1)
     parser.add_argument('--sam_ckpt_path', type=str, default="ckpts/sam_vit_h_4b8939.pth")
     parser.add_argument('--depth_mode',action='store_true', default=False)
@@ -539,6 +541,8 @@ if __name__ == '__main__':
     torch.set_default_dtype(torch.float32)
 
     dataset_path = args.dataset_path
+    model_path = args.model_path
+    iteration = args.iteration
     sam_ckpt_path = args.sam_ckpt_path
     depth_mode = args.depth_mode
     min_depth_mode = args.mindepth_mode
@@ -547,7 +551,7 @@ if __name__ == '__main__':
     if min_depth_mode:
         depth_mode=True
     img_folder = os.path.join(dataset_path, 'images')
-    depth_folder= os.path.join(dataset_path, 'depths')
+    depth_folder= os.path.join(model_path, 'train', f'ours_{str(iteration)}', 'depths')
     depth_sample_folder= os.path.join(dataset_path, 'depths_sample')
     pcd_depth_sample_folder= os.path.join(dataset_path, 'pcd_depths_sample')
     data_list = os.listdir(img_folder)

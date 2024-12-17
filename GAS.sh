@@ -1,7 +1,8 @@
-DATA_NAME="whu_square" # ramen | figurines | teatime | waldo_kitchen | rr-5fps ||| room | garden | counter | bonsai
-PROJ_PATH="/home/pyn/CODE/GAGS"
-CASE_NAME="garden_scene_name" 
-Iteration="30000"
+
+PROJ_PATH="/home/path/to/GAGS"
+DATA_NAME="garden"
+CASE_NAME="garden_case_name" 
+Iteration="30000" # iteration of the pretrained RGB 3DGS scene
 
 echo "Running Granularity-Aware Segmentation & Feature Extraction on $CASE_NAME"
 
@@ -27,9 +28,9 @@ fi
 
 if [ -d "$PROJ_PATH/data/$DATA_NAME/depths_sample" ] &&
 [ "$(ls -A $PROJ_PATH/data/$DATA_NAME/depths_sample)" ]; then
-    echo "Find min-depth mapping in $CASE_NAME/train/ours_$Iteration/depths_sample. Skip."
+    echo "Find min-depth mapping in $PROJ_PATH/data/$DATA_NAME/depths_sample. Skip."
 else
-    echo "No min-depth mapping founded in $CASE_NAME/train/ours_$Iteration/depths_sample. Start calculating."
+    echo "No min-depth mapping founded in $PROJ_PATH/data/$DATA_NAME/depths_sample. Start calculating."
     python depth_SAM.py \
         --source_path $PROJ_PATH/data/$DATA_NAME \
         --model_path $PROJ_PATH/output/$CASE_NAME \
@@ -43,6 +44,8 @@ else
     echo "No language features founded in $PROJ_PATH/data/$DATA_NAME/language_features. Start extracting language features."
     python preprocess.py \
         --dataset_path $PROJ_PATH/data/$DATA_NAME \
+        --model_path $PROJ_PATH/output/$CASE_NAME \
+        --iteration $((Iteration)) \
         --mindepth_mode
     echo "Extracting language features done."
 fi
