@@ -5,7 +5,7 @@ This is the official PyTorch implementation of the following publication:
 > **GAGS: Granularity-Aware 3D Feature Distillation for Gaussian Splatting**<br/>
 > [Yuning Pang](https://pz0826.github.io/), [Haiping Wang](https://hpwang-whu.github.io/), [Yuan Liu](https://liuyuan-pal.github.io/), Chenglu Wen, [Zhen Dong](https://dongzhenwhu.github.io/index.html), [Bisheng Yang](https://3s.whu.edu.cn/info/1025/1415.htm)<br/>
 > *arXiv 2024*<br/>
-> [**Full Paper**]() | [**Webpage**](https://github.com/pz0826/GAGS-Webpage) 
+> [**Full Paper**]() | [**Webpage**](https://pz0826.github.io/GAGS-Webpage/) 
 
 ## Introduction
 
@@ -37,12 +37,12 @@ The code has been tested on:
 The repository contains submodules, thus please check it out with 
 ```shell
 # SSH
-git clone git@github.com:pz0826/GAGS.git --recursive
+git git@github.com:WHU-USI3DV/GAGS.git --recursive
 ```
 or
 ```shell
 # HTTPS
-git clone https://github.com/pz0826/GAGS.git --recursive
+git clone https://github.com/WHU-USI3DV/GAGS.git --recursive
 ```
 
 ### Environment Setup
