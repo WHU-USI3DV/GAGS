@@ -2,27 +2,39 @@ name: GAGS
 channels:
   - pytorch
   - conda-forge
-  - defaults
   - nvidia
+  - defaults
+# dependencies:
+#   - open-clip-torch
+#   - cuda-toolkit=11.8
+#   - plyfile=0.8.1
+#   - python=3.8.19
+#   - pip=22.3.1
+#   - pytorch=2.1.0=py3.8_cuda11.8_cudnn8.7.0_0
+#   - torchaudio=2.1.0
+#   - torchvision=0.16.0
+#   - tqdm
+#   - tensorboard
+#   - matplotlib
+#   - typing
+#   - pathlib
+#   - openblas-devel
+#   - pip:
+#     - jaxtyping
+#     - opencv-python
+#     - gsplat
+#     - open3d
+#     - submodules/segment-anything
+#     - submodules/simple-knn
 dependencies:
-  - open-clip-torch
-  - cuda-toolkit=11.8
-  - plyfile=0.8.1
-  - python=3.8.19
-  - pip=22.3.1
+  - plyfile=0.8.1=pyhd8ed1ab_0
+  - python=3.8.19=h955ad1f_0
+  - pip=22.3.1=py38h06a4308_0
   - pytorch=2.1.0=py3.8_cuda11.8_cudnn8.7.0_0
-  - torchaudio=2.1.0
-  - torchvision=0.16.0
-  - tqdm
-  - tensorboard
-  - opencv
-  - jaxtyping
-  - matplotlib
-  - typing
-  - pathlib
-  - openblas-devel
-  - pip:
-    - gsplat
-    - open3d
-    - submodules/segment-anything
-    - submodules/simple-knn
+  - torchvision=0.16.0=py38_cu118
+  - torchaudio=2.1.0=py38_cu118
+  - pytorch-cuda=11.8=h7e8668a_5
+  - numpy=1.24.3=py38hf6e8229_1
+  # - numpy-base=1.24.3=py38h060ed82_1
+  - tqdm=4.66.2=pyhd8ed1ab_0
+  # - setuptools=68.2.2=py38h06a4308_0

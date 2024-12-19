@@ -26,15 +26,6 @@ import math
 from itertools import product
 from utils.SAM_utils import build_all_layer_mindepth_point_grids, build_mindepth_point_grid, sample_based_mapping
 
-from torchvision import transforms
-from torchvision.transforms import ToPILImage
-from matplotlib import pyplot as plt
-from PIL import Image
-import copy
-from matplotlib import cm
-from matplotlib.colors import Normalize
-from matplotlib.patches import Polygon
-from skimage import measure
 
 @dataclass
 class OpenCLIPNetworkConfig:
