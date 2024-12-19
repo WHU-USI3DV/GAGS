@@ -50,7 +50,7 @@ git clone https://github.com/WHU-USI3DV/GAGS.git --recursive
 Our default, provided install method is based on Conda package and environment management:
 ```shell
 conda env create --file environment.yml
-conda activate langsplat
+conda activate GAGS
 ```
 Then, download the checkpoints of SAM from [here](https://github.com/facebookresearch/segment-anything) and place it in the ```ckpts/``` directory.
 
