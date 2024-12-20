@@ -44,6 +44,7 @@ def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor, 
     if feature_mode :
         colors = pc.get_semantic_feature # [N, 16]
         sh_degree = None
+        bg_color = bg_color[0].repeat(colors.shape[-1])
     elif override_color is not None:
         colors = override_color # [N, 3]
         sh_degree = None

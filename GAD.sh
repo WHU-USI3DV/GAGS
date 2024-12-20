@@ -1,7 +1,7 @@
 
 PROJ_PATH="/home/path/to/GAGS"
 DATA_NAME="garden"
-CASE_NAME="garden_case_name"
+CASE_NAME="garden_scene_name"
 start_checkpoint="chkpnt30000.pth" # pretrained RGB 3DGS scene
 Iteration="30000" # iteration of the feature distillation
 

@@ -76,9 +76,6 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
     cnn_scale_decoder_optimizer = torch.optim.Adam(cnn_scale_decoder.parameters(), lr=0.0001)
         
     original_h, original_w = viewpoint_cam0.semantic_feature_height, viewpoint_cam0.semantic_feature_width
-    os.makedirs(os.path.join(dataset.model_path, "loss_map_seg"), exist_ok = True)
-    os.makedirs(os.path.join(dataset.model_path, "novel_view"), exist_ok = True)
-    os.makedirs(os.path.join(dataset.model_path, "novel_language_features"), exist_ok = True)
     
     gaussians.training_setup(opt)
     if checkpoint: # continue from checkpoint

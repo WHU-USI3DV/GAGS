@@ -1,7 +1,7 @@
 
 PROJ_PATH="/home/path/to/GAGS"
 DATA_NAME="garden"
-CASE_NAME="garden_case_name" 
+CASE_NAME="garden_scene_name"
 Iteration="30000" # iteration of the pretrained RGB 3DGS scene
 
 echo "Running Granularity-Aware Segmentation & Feature Extraction on $CASE_NAME"

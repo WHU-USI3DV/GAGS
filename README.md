@@ -152,7 +152,7 @@ sh GAD.sh
 # rendering RGB and depth
 python render.py -s $PROJ_PATH/data/$DATA_NAME -m $PROJ_PATH/output/$CASE_NAME --render_mode "RGB+ED" --foundation_model "none"
 # rendering language feature
-python render.py -s $PROJ_PATH/data/$DATA_NAME -m $PROJ_PATH/output/$CASE_NAME --foundation_model "sam_clip"
+python render.py -s $PROJ_PATH/data/$DATA_NAME -m $PROJ_PATH/output/$CASE_NAME --foundation_model "sam_clip" --feature_mode
 ```
 
 For the LERF and Mip-NeRF-360 datasets, download our annotated GT labels from [here]()(to be released) and place them in the ```data/label``` directory. Then, modify the corresponding parameters and run:
