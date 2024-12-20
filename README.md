@@ -164,16 +164,16 @@ sh eval.sh
 Our evaluation code is based on [LERF](https://github.com/kerrj/lerf) and [Langsplat](https://github.com/minghanqin/LangSplat). Special thanks to these amazing open-source projects!
 
 
-<!-- ## Citation
+## Citation
 
 ```
 @article{peng2024gags,
   title={GAGS: Granularity-Aware 3D Feature Distillation for Gaussian Splatting},
   author={Peng, Yuning and Wang, Haiping and Liu, Yuan and Wen, Chenglu and Dong, Zhen and Yang, Bisheng},
-  journal={arXiv},
+  journal={arXiv preprint arXiv:2412.13654},
   year={2024}
 }
-``` -->
+```
 
 ## Related Projects
 
