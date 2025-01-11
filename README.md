@@ -5,7 +5,7 @@ This is the official PyTorch implementation of the following publication:
 > **GAGS: Granularity-Aware 3D Feature Distillation for Gaussian Splatting**<br/>
 > [Yuning Peng](https://pz0826.github.io/), [Haiping Wang](https://hpwang-whu.github.io/), [Yuan Liu](https://liuyuan-pal.github.io/), [Chenglu Wen](https://asc.xmu.edu.cn/), [Zhen Dong](https://dongzhenwhu.github.io/index.html), [Bisheng Yang](https://3s.whu.edu.cn/info/1025/1415.htm)<br/>
 > *arXiv 2024*<br/>
-> [**Full Paper**](https://arxiv.org/abs/2412.13654) | [**Webpage**](https://pz0826.github.io/GAGS-Webpage/) 
+> [**Full Paper**](https://arxiv.org/abs/2412.13654) | [**Webpage**](https://pz0826.github.io/GAGS-Webpage/) | [**Eval Dataset**](https://drive.google.com/drive/folders/1_IbWgVgvnCy4jq9P5EcE6xS44ftcmtgq?usp=drive_link)
 
 ## Introduction
 
@@ -77,6 +77,8 @@ Our model accepts datasets in the COLMAP format. Place your dataset in the ```da
         |---images.bin
         |---points3D.bin
 ```
+
+> Note: For GPUs with VRAM ≤ 24GB, to prevent out-of-memory issues during training in some complex scenes, we recommend that the resolution of input images does not exceed 1080P. Specifically, for the two datasets tested in the paper, we recommend using the original resolution (~720p) in LERF-OVS and the downsampled size closest to 1080p for each scene in Mip-NeRF360-OVS to match our default training and eval settings.
 
 If your input dataset does not include image pose information (e.g., images you captured), you can use the ```convert.py``` script to extract undistorted images and SfM information, provided that COLMAP is installed. The script can also resize images (requires ImageMagick).
 
@@ -155,7 +157,7 @@ python render.py -s $PROJ_PATH/data/$DATA_NAME -m $PROJ_PATH/output/$CASE_NAME -
 python render.py -s $PROJ_PATH/data/$DATA_NAME -m $PROJ_PATH/output/$CASE_NAME --foundation_model "sam_clip" --feature_mode
 ```
 
-For the LERF and Mip-NeRF-360 datasets, download our annotated GT labels from [here]()(to be released) and place them in the ```data/label``` directory. Then, modify the corresponding parameters and run:
+For the LERF and Mip-NeRF-360 datasets, download our annotated GT labels from [here](https://drive.google.com/drive/folders/1_IbWgVgvnCy4jq9P5EcE6xS44ftcmtgq?usp=drive_link) and place them in the ```data/label``` directory. Then, modify the corresponding parameters and run:
 
 ```shell
 sh eval.sh
@@ -163,6 +165,15 @@ sh eval.sh
 
 Our evaluation code is based on [LERF](https://github.com/kerrj/lerf) and [Langsplat](https://github.com/minghanqin/LangSplat). Special thanks to these amazing open-source projects!
 
+## TODO list
+
+- [x] Release training code
+- [x] Release evaluation code
+- [x] Release evaluation GT labels for the datasets tested in the paper
+- [ ] Release preprocessed datasets and pretrained models
+- [ ] Release text-query relevance map visualization scripts
+
+This repository is still under construction. Please feel free to open issues or submit pull requests. We appreciate all contributions to this project.
 
 ## Citation
 
