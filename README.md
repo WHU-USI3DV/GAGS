@@ -163,6 +163,12 @@ For the LERF and Mip-NeRF-360 datasets, download our annotated GT labels from [h
 sh eval.sh
 ```
 
+For queries outside the GT labels or custom datasets, the compute_relvancy_map.sh script is available to visualize the relevance between rendered images / 3D Gaussians and text queries. Just modify the corresponding parameters and run:
+
+```shell
+sh compute_relvancy_map.sh
+```
+
 Our evaluation code is based on [LERF](https://github.com/kerrj/lerf) and [Langsplat](https://github.com/minghanqin/LangSplat). Special thanks to these amazing open-source projects!
 
 ## TODO list
@@ -170,8 +176,8 @@ Our evaluation code is based on [LERF](https://github.com/kerrj/lerf) and [Langs
 - [x] Release training code
 - [x] Release evaluation code
 - [x] Release evaluation GT labels for the datasets tested in the paper
+- [x] Release text-query relevance visualization scripts (2D & 3D)
 - [ ] Release preprocessed datasets and pretrained models
-- [ ] Release text-query relevance map visualization scripts
 
 This repository is still under construction. Please feel free to open issues or submit pull requests. We appreciate all contributions to this project.
 
