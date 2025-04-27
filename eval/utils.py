@@ -87,7 +87,7 @@ def smooth_GPU(mask, scale = 3):
                               max(0, j-scale) : min(j+scale+1, w-1)]
                 mask_smoothed[i, j] = np.argmax(np.bincount(square.reshape(-1)))
 
-    return mask_smoothed
+    return mask_smoothed # H, W
 
 def colormap_saving(image: torch.Tensor, colormap_options, save_path):
     """
@@ -95,16 +95,19 @@ def colormap_saving(image: torch.Tensor, colormap_options, save_path):
     if image's shape is (h, w, 3): return directively;
     if image's shape is (h, w, c): execute PCA and transform it into (h, w, 3).
     """
-    output_image = (
-        colormaps.apply_colormap(
-            image=image,
-            colormap_options=colormap_options,
-        ).cpu().numpy()
-    )
-    if save_path is not None:
-        media.write_image(save_path.with_suffix(".png"), output_image, fmt="png")
-    return output_image
-
+    output_image = colormaps.apply_colormap(
+        image=image,
+        colormap_options=colormap_options,
+        )
+    if len(output_image) == 2: # H, W, 1
+        logit, image = output_image 
+        if save_path is not None:
+            media.write_image(save_path.with_suffix(".png"), image.cpu().numpy(), fmt="png")
+        return logit
+    else:
+        if save_path is not None:
+            media.write_image(save_path.with_suffix(".png"), output_image.cpu().numpy(), fmt="png")
+        return output_image
 
 def vis_mask_save(mask, save_path: Path = None):
     mask_save = mask.copy()

@@ -77,7 +77,7 @@ def apply_colormap(
         output = torch.clip(output, 0, 1)
         if colormap_options.invert:
             output = 1 - output
-        return apply_float_colormap(output, colormap=colormap_options.colormap)
+        return output, apply_float_colormap(output, colormap=colormap_options.colormap)
 
     # rendering boolean outputs
     if image.dtype == torch.bool:

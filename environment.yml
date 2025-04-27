@@ -25,5 +25,6 @@ dependencies:
     - opencv-python
     - gsplat
     - open3d
+    - mediapy
     - submodules/segment-anything
     - submodules/simple-knn
