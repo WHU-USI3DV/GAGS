@@ -184,8 +184,19 @@ def training(dataset, opt, pipe, testing_iterations, saving_iterations, checkpoi
                 progress_bar.close()
 
             # Log and save
-            training_report(tb_writer, iteration, Ll1_feature, feature_reionvar_loss, torch.mean(scale_map[0]),torch.mean(scale_map[1]),torch.mean(scale_map[2]), loss, l1_loss, 
-                            iter_start.elapsed_time(iter_end), testing_iterations, scene, render, (pipe, background)) 
+            if iteration % 500 == 0:
+                # visualize scale_map every 500 iterations
+                training_report(tb_writer, iteration, Ll1_feature, feature_reionvar_loss, 
+                                torch.mean(scale_map[0]),torch.mean(scale_map[1]),torch.mean(scale_map[2]), 
+                                loss, l1_loss, iter_start.elapsed_time(iter_end), 
+                                testing_iterations, scene, render, (pipe, background), scale_map) 
+            else:
+                # regular log recording
+                training_report(tb_writer, iteration, Ll1_feature, feature_reionvar_loss, 
+                                torch.mean(scale_map[0]),torch.mean(scale_map[1]),torch.mean(scale_map[2]), 
+                                loss, l1_loss, iter_start.elapsed_time(iter_end), 
+                                testing_iterations, scene, render, (pipe, background))
+
             if (iteration in saving_iterations):
                 print("\n[ITER {}] Saving Gaussians".format(iteration))
                 mem = torch.cuda.max_memory_allocated() / 1024**3
@@ -252,7 +263,7 @@ def prepare_output_and_logger(args):
         print("Tensorboard not available: not logging progress")
     return tb_writer
 
-def training_report(tb_writer, iteration, Ll1_feature, feature_reionvar_loss, scale_s, sclae_m, scale_l, loss, l1_loss, elapsed, testing_iterations, scene : Scene, renderFunc, renderArgs):
+def training_report(tb_writer, iteration, Ll1_feature, feature_reionvar_loss, scale_s, sclae_m, scale_l, loss, l1_loss, elapsed, testing_iterations, scene : Scene, renderFunc, renderArgs, scale_map=None):
     if tb_writer:
         # tb_writer.add_scalar('train_loss_patches/l1_loss', Ll1.item(), iteration)
         tb_writer.add_scalar('train_loss_patches/l1_loss_feature', Ll1_feature.item(), iteration) 
@@ -262,6 +273,17 @@ def training_report(tb_writer, iteration, Ll1_feature, feature_reionvar_loss, sc
         tb_writer.add_scalar('scale_patchs/subpart',scale_s.item(), iteration)
         tb_writer.add_scalar('scale_patchs/part',sclae_m.item(), iteration)
         tb_writer.add_scalar('scale_patchs/whole',scale_l.item(), iteration)
+        
+        # visualize scale_map
+        if scale_map is not None:
+
+            # add to tensorboard
+            tb_writer.add_image('scale_map_rgb', scale_map, iteration, dataformats='CHW')
+            
+            # add 3 separate heatmaps for s, m, l granularity
+            tb_writer.add_image('scale_map/s_scale', scale_map[0].unsqueeze(0), iteration, dataformats='CHW')
+            tb_writer.add_image('scale_map/m_scale', scale_map[1].unsqueeze(0), iteration, dataformats='CHW')
+            tb_writer.add_image('scale_map/l_scale', scale_map[2].unsqueeze(0), iteration, dataformats='CHW')
 
 if __name__ == "__main__":
     # Set up command line argument parser

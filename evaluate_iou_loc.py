@@ -23,7 +23,9 @@ from scene import Scene
 from gaussian_renderer import render
 from eval.openclip_encoder import OpenCLIPNetwork
 from eval.utils import smooth, colormap_saving, vis_mask_save, polygon_to_mask, stack_mask, show_result
-import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')   # opencv-python has a crash with matplotlib(interactive backend),
+                        # uninstall PyQt5 may solve this problem
 
 def get_logger(name, log_file=None, log_level=logging.INFO, file_mode='w'):
     logger = logging.getLogger(name)
@@ -151,7 +153,7 @@ def activate_stream(sem_map,
         np_output = output.unsqueeze(0).cpu().numpy() # 1,H,W
         avg_filtered = cv2.filter2D(np_output.transpose(1,2,0), -1, kernel) # H, W
         avg_filtered = torch.from_numpy(avg_filtered).unsqueeze(-1).to(valid_map.device) # H, W, 1
-        valid_composited = colormaps.apply_colormap((0.5 * output.unsqueeze(-1) + 0.5 * avg_filtered), colormaps.ColormapOptions("turbo"))
+        _, valid_composited = colormaps.apply_colormap((0.5 * output.unsqueeze(-1) + 0.5 * avg_filtered), colormaps.ColormapOptions("turbo"))
         
         valid_mask_composited=torch.zeros_like(image)
         valid_mask_composited[~mask_show, :] = image[~mask_show, :] * 0.4 + white_mask[~mask_show, :] * 0.1
@@ -214,7 +216,7 @@ def lerf_localization(sem_map, image, clip_model, image_name, img_ann):
         avg_filtered = torch.from_numpy(avg_filtered[..., 0]).unsqueeze(-1).to(select_output.device)
         torch_relev = 0.5 * (avg_filtered + select_output[0].unsqueeze(-1))
         p_i = torch.clip(torch_relev - 0.5, 0, 1)
-        valid_composited = colormaps.apply_colormap(p_i / (p_i.max() + 1e-6), colormaps.ColormapOptions("turbo"))
+        _, valid_composited = colormaps.apply_colormap(p_i / (p_i.max() + 1e-6), colormaps.ColormapOptions("turbo"))
         mask = (torch_relev < 0.5).squeeze()
         valid_composited[mask, :] = image[mask, :] * 0.3 
         

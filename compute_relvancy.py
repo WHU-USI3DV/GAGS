@@ -130,7 +130,7 @@ def activate_stream(sem_map,
         # (GAGS-style) segment mask with composited image
         # rel_map -> norm[0,1] -> clip[0.5,1] -> norm[0,1] -> thresh(0.4) -> mask
         mask_pred = (output.cpu() > thresh).to(torch.uint8)
-        mask_pred = smooth_GPU(mask_pred)       
+        mask_pred = smooth_GPU(mask_pred) # H, W
         mask_show = mask_pred.astype(bool)
         np_output = output.cpu().numpy() # H, W, 1
         avg_filtered = cv2.filter2D(np_output, -1, kernel) # H, W
