@@ -21,7 +21,13 @@ This is the official PyTorch implementation of the following publication:
   GAGS addresses this challenge with two novel strategies. First, GAGS associates the prompt point density of SAM with the camera distances, which significantly improves the multiview consistency of segmentation results. Second, GAGS further decodes a granularity factor to guide the distillation process and this granularity factor can be learned in a unsupervised manner to only select the multiview consistent 2D features in the distillation process. Experimental results on two datasets demonstrate significant performance and stability improvements of GAGS in visual grounding and semantic segmentation, with an inference speed 2 × faster than baseline methods.
 </p>
 
-## Requirements
+## 📰 News
+
+- 2025-11-09: 🍾GAGS is accepted by AAAI-26! 
+- 2025-04-28: Text-query relevance visualization scripts for 2D/3D are available now!
+- 2024-12-16: Code and evaluation datasets are available.
+
+## 💻 Requirements
 
 The code has been tested on:
 - Ubuntu 20.04
@@ -30,7 +36,7 @@ The code has been tested on:
 - Pytorch 2.1.0
 - GeForce RTX 4090.
 
-## Installation
+## 🔧 Installation
 
 ### Cloning the Repository
 
@@ -54,7 +60,7 @@ conda activate GAGS
 ```
 Then, download the checkpoints of SAM from [here](https://github.com/facebookresearch/segment-anything) and place it in the ```ckpts/``` directory.
 
-## Training
+## 🔧 Training
 
 Our training process consists of two main steps:
 
@@ -171,7 +177,7 @@ sh compute_relvancy_map.sh
 
 Our evaluation code is based on [LERF](https://github.com/kerrj/lerf) and [Langsplat](https://github.com/minghanqin/LangSplat). Special thanks to these amazing open-source projects!
 
-## TODO list
+## 📝 TODO list
 
 - [x] Release training code
 - [x] Release evaluation code
@@ -181,7 +187,7 @@ Our evaluation code is based on [LERF](https://github.com/kerrj/lerf) and [Langs
 
 This repository is still under construction. Please feel free to open issues or submit pull requests. We appreciate all contributions to this project.
 
-## Citation
+## 󠀢📇 Citation
 
 ```
 @article{peng2024gags,
@@ -192,7 +198,7 @@ This repository is still under construction. Please feel free to open issues or 
 }
 ```
 
-## Related Projects
+## 🔗 Related Projects
 
 We sincerely thank the excellent open-source projects:
 
